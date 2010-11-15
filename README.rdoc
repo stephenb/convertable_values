@@ -1,8 +1,25 @@
-= convertable-values
+= Overview
 
-Description goes here.
+This gem provides 2 things:
+1. a simple unit conversion library, and
+2. a pattern for transparently converting to/from base units.
 
-== Contributing to convertable-values
+Example scenario: You have a model that wants to store values with units (e.g., 200 lbs), 
+but you want (or at least should want) to store all the values in the same base unit (e.g., 90.718474 kg). 
+This gem makes using this design pattern totally transparent.
+
+The main goal behind this library is to enable transparent handling of unit conversions on a model. The obvious use-case 
+for this is to ensure all values of a similar system are stored in the same unit. The benefit is that you can then do batch 
+computations on the data-set without having to worry about the unit each record's value is stored in.
+
+The unit conversions in this library are done as simply as possible by extending Numeric. 
+Comprehensiveness and precision of the unit conversion capabilities are not on par with libraries such as 
+<a href="http://rubygems.org/gems/ruby-units">Ruby-Units</a> and <a href="http://rubygems.org/gems/alchemist">Alchemist</a>.
+If your needs are more based on converting in many different crazy systems then I suggest checking out those libraries.
+
+= Using It
+
+== Contributing to convertable_values
  
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it

@@ -12,11 +12,13 @@ require 'rake'
 require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
-  gem.name = "convertable-values"
-  gem.homepage = "http://github.com/stephenb/convertable-values"
+  gem.name = "convertable_values"
+  gem.homepage = "http://github.com/stephenb/convertable_values"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{Convertable Values provides a simple unit conversion library and pattern for transparently storing base units.}
+  gem.description = %Q{Convertable Values provides a simple unit conversion library and pattern for transparently storing base units.
+                       Example usage: You have a model that wants to store values with units (e.g., 200 lbs), but you want (or at least should want)
+                       to store all the values in a base unit (e.g., 90.718474 kilograms). This gem makes using this design pattern totally transparent.}
   gem.email = "stephenrb@gmail.com"
   gem.authors = ["Stephen Blankenship"]
   # Include your dependencies below. Runtime dependencies are required when using your gem,
@@ -47,7 +49,7 @@ Rake::RDocTask.new do |rdoc|
   version = File.exist?('VERSION') ? File.read('VERSION') : ""
 
   rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "convertable-values #{version}"
+  rdoc.title = "convertable_values #{version}"
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
