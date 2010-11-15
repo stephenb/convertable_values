@@ -50,7 +50,7 @@ class TestConvertableValues < Test::Unit::TestCase
       assert_in_delta @obj.instance_variable_get(:@value), 5000, P # Bypass accessor
     end
     
-    should "set the value converted to the base unit" do
+    should "return the inputted unit on normal access" do
       assert_in_delta @obj.value, 3.10685596, P
     end
     
