@@ -8,6 +8,9 @@ module ConvertableValues
   
   module ClassMethods
     
+    # Calling convert(value_attr_name, unit_attr_name) will set up that 
+    # pair of value/unit attributes to automatically convert the valu to/from the 
+    # given unit's base unit.
     def convert(value_attr, unit_attr)
       # Create override method for converting value to base unit when set
       define_method "#{value_attr}=".to_sym do |new_value|

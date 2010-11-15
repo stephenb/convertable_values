@@ -13,11 +13,30 @@ for this is to ensure all values of a similar system are stored in the same unit
 computations on the data-set without having to worry about the unit each record's value is stored in.
 
 The unit conversions in this library are done as simply as possible by extending Numeric. 
-Comprehensiveness and precision of the unit conversion capabilities are not on par with libraries such as 
-<a href="http://rubygems.org/gems/ruby-units">Ruby-Units</a> and <a href="http://rubygems.org/gems/alchemist">Alchemist</a>.
+Comprehensiveness and precision of the unit conversion capabilities are not on par with Ruby libraries such as Ruby-Units and Alchemist.
 If your needs are more based on converting in many different crazy systems then I suggest checking out those libraries.
 
+One last quick note. The simple conversion approach taken here is faster than ruby-units or alchemist. In most cases this 
+won't matter, but it's still worth noting...
+
 = Using It
+
+1. gem install convertable_values
+2. include ConvertableValues and "convert" your attributes
+
+In a standard class:
+
+	class MyNormalClass
+		include ConvertableValues
+		attr_accessor :value, :unit
+	
+		convert(:value, :unit)
+	end
+	
+Including for your entire Rails project:
+	
+	# Stick in a file in initializers or in environment file
+	ActiveRecord::Base.send(:include, ConvertableValues)
 
 == Contributing to convertable_values
  
