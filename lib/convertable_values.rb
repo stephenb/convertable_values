@@ -18,10 +18,17 @@ module ConvertableValues
         
         if new_value && unit_str
           # store the value converted to the base unit corresponding to the given unit
-          # write_attribute(value_attr.to_sym, v.send(unit_attr.to_sym))
-          instance_variable_set("@#{value_attr}".to_sym, new_value.send(unit_str))
+          if respond_to?(:write_attribute)
+            write_attribute(value_attr.to_sym, new_value.send(unit_str))
+          else
+            instance_variable_set("@#{value_attr}".to_sym, new_value.send(unit_str))
+          end
         else
-          instance_variable_set("@#{value_attr}".to_sym, new_value)
+          if respond_to?(:write_attribute)
+            write_attribute(value_attr.to_sym, new_value)
+          else
+            instance_variable_set("@#{value_attr}".to_sym, new_value)
+          end
         end
       end
       
@@ -31,19 +38,40 @@ module ConvertableValues
         
         if unit_str
           # return the value converted back to whatever unit was stored
-          instance_variable_get("@#{value_attr}".to_sym).to(unit_str.to_sym)
+          if respond_to?(:read_attribute)
+            read_attribute(value_attr.to_sym).to(unit_str.to_sym)
+          else
+            instance_variable_get("@#{value_attr}".to_sym).to(unit_str.to_sym)
+          end
         else
-          instance_variable_get("@#{value_attr}".to_sym)
+          if respond_to?(:read_attribute)
+            read_attribute(value_attr.to_sym)
+          else
+            instance_variable_get("@#{value_attr}".to_sym)
+          end
         end
       end
       
       # Create override method for updating value when unit is set/changed
       define_method "#{unit_attr}=".to_sym do |new_unit|
-        old_unit = instance_variable_get("@#{unit_attr}".to_sym)
-        instance_variable_set("@#{unit_attr}".to_sym, new_unit)
+        if respond_to?(:read_attribute)
+          old_unit = read_attribute(unit_attr.to_sym)
+        else
+          old_unit = instance_variable_get("@#{unit_attr}".to_sym)
+        end
+        
+        if respond_to?(:write_attribute)
+          write_attribute(unit_attr.to_sym, new_unit)
+        else
+          instance_variable_set("@#{unit_attr}".to_sym, new_unit)
+        end
       
         # Re-assign the value so it will be converted properly
-        value = instance_variable_get("@#{value_attr}".to_sym)
+        if respond_to?(:read_attribute)
+          value = read_attribute(value_attr.to_sym)
+        else
+          value = instance_variable_get("@#{value_attr}".to_sym)
+        end
         send("#{value_attr}=".to_sym, value) if value && old_unit.nil?
 
         new_unit
