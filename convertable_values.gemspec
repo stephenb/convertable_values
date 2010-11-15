@@ -26,6 +26,7 @@ Gem::Specification.new do |s|
     "README.rdoc",
     "Rakefile",
     "VERSION",
+    "convertable_values.gemspec",
     "lib/convertable_values.rb",
     "lib/numeric/numeric_units.rb",
     "test/helper.rb",
