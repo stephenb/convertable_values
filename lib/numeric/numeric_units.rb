@@ -7,8 +7,8 @@
 #
 # So, calling 3.pounds will return 1.36077711, which is the value converted to the base unit of kilograms.
 #
-# When retrieving the values, you can call one of the slew of to_* methods.
-# => 5.km.to_miles -> 3.10685596118667
+# When retrieving the values, you can call one of the to(unit) methods.
+# => 5.km.to(:miles) -> 3.10685596118667
 # whereas
 # => 5.km -> 5000  (meters)
 # 
@@ -159,18 +159,9 @@ class Numeric
   alias :quarts :quart
   alias :qt     :quart
   
-  # Helps convert back to a proper value
-  def method_missing(method, *args)
-    if match = /^to_([a-zA-Z_]*)$/.match(method.to_s)
-      self / 1.send(match[1]).to_f
-    else
-      super
-    end
-  end
-  
   # Call using something like to(:pounds)
   def to(unit)
-    self.send("to_#{unit.to_s}")
+    self / 1.send(unit)
   end
   
 end
