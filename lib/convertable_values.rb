@@ -14,6 +14,7 @@ module ConvertableValues
     def convert(value_attr, unit_attr)
       # Create override method for converting value to base unit when set
       define_method "#{value_attr}=".to_sym do |new_value|
+        new_value = new_value.to_f if new_value.is_a?(String)
         unit_str = send(unit_attr.to_sym)
         
         if new_value && unit_str
